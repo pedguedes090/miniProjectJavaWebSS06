@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 
@@ -68,6 +69,24 @@ public class CourseController {
     @PostMapping("/update")
     public String updateCourse(@ModelAttribute("course") Course course) {
         courseService.updateCourse(course);
+        return "redirect:/course/list";
+    }
+
+    @PostMapping("/delete/{id}")
+    public String deleteCourse(@PathVariable("id") String id, RedirectAttributes redirectAttributes) {
+        Course course = courseService.getCourseById(id);
+        if (course == null) {
+            redirectAttributes.addFlashAttribute("errorMessage", "Không tìm thấy khóa học cần hủy");
+            return "redirect:/course/list";
+        }
+
+        if (course.getStudentCount() > 0) {
+            redirectAttributes.addFlashAttribute("errorMessage", "Không thể hủy khóa học đã có học viên đăng ký");
+            return "redirect:/course/list";
+        }
+
+        courseService.deleteCourse(id);
+        redirectAttributes.addFlashAttribute("successMessage", "Hủy khóa học thành công");
         return "redirect:/course/list";
     }
 }

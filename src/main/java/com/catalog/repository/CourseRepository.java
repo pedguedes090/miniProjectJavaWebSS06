@@ -17,6 +17,8 @@ public class CourseRepository {
         courseList.add(new Course("IELTS-ADV-75", "IELTS 7.5 Intensive", "Advanced", 8500000.0, "Luyện đề chuyên sâu và chiến thuật phòng thi.", "Mr. David", 10, false, 10, "2026-06-01"));
         courseList.add(new Course("TOEIC-BEG-500", "TOEIC 500+", "Beginner", 2500000.0, "Lấy lại căn bản ngữ pháp và từ vựng.", "Ms. Lan", 6, false, 20, "2026-06-10"));
         courseList.add(new Course("BUS-INT-01", "Tiếng Anh Thương Mại", "Intermediate", 5500000.0, "Viết email, thuyết trình và đàm phán.", "Mr. Michael", 10, false, 12, "2026-06-15"));
+        courseList.add(new Course("JAVA-BEG-01", "Java Web Cơ Bản", "Beginner", 4200000.0, "Làm quen với Java Web, Servlet và MVC.", "Ms. Hạnh", 8, false, 0, "2026-07-01"));
+        courseList.add(new Course("SPRING-INT-01", "Spring MVC Thực Hành", "Intermediate", 6800000.0, "Xây dựng ứng dụng web với Spring MVC và Thymeleaf.", "Mr. Tuấn", 10, false, 0, "2026-07-15"));
     }
 
     public List<Course> filterCourses(String level, Double maxFee) {
@@ -44,5 +46,9 @@ public class CourseRepository {
                 break;
             }
         }
+    }
+
+    public void deleteCourse(String id) {
+        courseList.removeIf(course -> course.getCourseCode().equals(id));
     }
 }
