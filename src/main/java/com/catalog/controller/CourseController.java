@@ -6,6 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -35,5 +38,36 @@ public class CourseController {
         model.addAttribute("selectedFee", maxFee);
 
         return "course-list";
+    }
+
+    @GetMapping("/detail/{id}")
+    public String showCourseDetail(@PathVariable("id") String id, Model model) {
+        Course course = courseService.getCourseById(id);
+        if (course != null) {
+            model.addAttribute("course", course);
+            return "course-detail";
+        }
+        return "redirect:/course/list";
+    }
+
+    @GetMapping("/register")
+    public String showRegisterForm() {
+        return "course-form";
+    }
+
+    @GetMapping("/edit/{id}")
+    public String showEditForm(@PathVariable("id") String id, Model model) {
+        Course course = courseService.getCourseById(id);
+        if (course != null) {
+            model.addAttribute("course", course);
+            return "course-form";
+        }
+        return "redirect:/course/list";
+    }
+
+    @PostMapping("/update")
+    public String updateCourse(@ModelAttribute("course") Course course) {
+        courseService.updateCourse(course);
+        return "redirect:/course/list";
     }
 }

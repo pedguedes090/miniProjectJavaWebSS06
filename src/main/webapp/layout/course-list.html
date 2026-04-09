@@ -72,8 +72,11 @@
         </td>
 
         <td class="align-middle">
-          <a th:href="@{/courses/detail/{id}(id=${course.courseCode})}" class="btn btn-sm btn-info">
+          <a th:href="@{/course/detail/{id}(id=${course.courseCode})}" class="btn btn-sm btn-info">
             Xem chi tiết
+          </a>
+          <a th:href="@{/course/edit/{id}(id=${course.courseCode})}" class="btn btn-sm btn-warning">
+            Cập nhật
           </a>
         </td>
       </tr>

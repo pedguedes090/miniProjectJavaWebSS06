@@ -4,11 +4,45 @@
 <head>
     <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Chinh sua khoa hoc</title>
+    <title>Chỉnh sửa khóa học</title>
 </head>
 <body>
   <div layout:fragment="content">
-    <h2>Form cập nhật</h2>
+    <div class="card shadow-sm m-4">
+      <div class="card-header bg-danger text-white">
+        <h2 class="h5 mb-0">Cập Nhật Thông Tin Khóa Học</h2>
+      </div>
+      <div class="card-body">
+        <form th:action="@{/course/update}" th:object="${course}" method="post">
+          <input type="hidden" th:field="*{courseCode}" />
+
+          <div class="form-group">
+            <label class="font-weight-bold">Tên Khóa Học:</label>
+            <input type="text" class="form-control bg-light" th:field="*{name}" readonly />
+          </div>
+
+          <div class="form-group">
+            <label class="font-weight-bold">Trình Độ:</label>
+            <input type="text" class="form-control bg-light" th:field="*{level}" readonly />
+          </div>
+
+          <div class="form-group">
+            <label class="font-weight-bold">Học Phí (VNĐ):</label>
+            <input type="number" step="0.01" class="form-control" th:field="*{tuitionFee}" required />
+          </div>
+
+          <div class="form-group">
+            <label class="font-weight-bold">Ngày Khai Giảng:</label>
+            <input type="date" class="form-control" th:field="*{startDate}" required />
+          </div>
+
+          <div class="mt-4">
+            <button type="submit" class="btn btn-warning font-weight-bold">Lưu Cập Nhật</button>
+            <a th:href="@{/course/list}" class="btn btn-secondary">Hủy Bỏ</a>
+          </div>
+        </form>
+      </div>
+    </div>
   </div>
 </body>
 </html>

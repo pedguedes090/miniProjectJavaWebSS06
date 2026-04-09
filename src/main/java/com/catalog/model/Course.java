@@ -10,11 +10,12 @@ public class Course {
     private int duration;
     private boolean isFull;
     private int studentCount;
+    private String startDate;
 
     public Course() {}
 
     public Course(String courseCode, String name, String level, Double tuitionFee,
-                  String description, String instructor, int duration, boolean isFull, int studentCount) {
+                  String description, String instructor, int duration, boolean isFull, int studentCount, String startDate) {
         this.courseCode = courseCode;
         this.name = name;
         this.level = level;
@@ -24,6 +25,7 @@ public class Course {
         this.duration = duration;
         this.isFull = isFull;
         this.studentCount = studentCount;
+        this.startDate = startDate;
     }
 
     public String getCourseCode() { return courseCode; }
@@ -52,4 +54,7 @@ public class Course {
 
     public int getStudentCount() { return studentCount; }
     public void setStudentCount(int studentCount) { this.studentCount = studentCount; }
+
+    public String getStartDate() { return startDate; }
+    public void setStartDate(String startDate) { this.startDate = startDate; }
 }

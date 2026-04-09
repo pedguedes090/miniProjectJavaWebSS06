@@ -16,4 +16,12 @@ public class CourseService {
     public List<Course> getFilteredCourses(String level, Double maxFee) {
         return courseRepository.filterCourses(level, maxFee);
     }
+
+    public Course getCourseById(String id) {
+        return courseRepository.getCourseById(id);
+    }
+
+    public void updateCourse(Course course) {
+        courseRepository.updateCourse(course);
+    }
 }
