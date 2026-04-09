@@ -1,4 +1,4 @@
-package com.catalog.config; // Đã đổi sang package của bạn
+package com.catalog.config;
 
 import nz.net.ultraq.thymeleaf.layoutdialect.LayoutDialect;
 import org.springframework.context.annotation.Bean;

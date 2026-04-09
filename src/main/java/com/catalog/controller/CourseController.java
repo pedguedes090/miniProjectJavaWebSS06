@@ -14,11 +14,9 @@ import java.util.List;
 @Controller
 @RequestMapping("/course")
 public class CourseController {
-
     @Autowired
     private CourseService courseService;
 
-    // Yêu cầu: Sử dụng @RequestParam, có giá trị mặc định, Shortcut @GetMapping
     @GetMapping("/list")
     public String showCourseList(
             @RequestParam(value = "level", required = false, defaultValue = "") String level,
