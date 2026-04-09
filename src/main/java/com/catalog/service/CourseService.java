@@ -24,4 +24,8 @@ public class CourseService {
     public void updateCourse(Course course) {
         courseRepository.updateCourse(course);
     }
+
+    public void deleteCourse(String id) {
+        courseRepository.deleteCourse(id);
+    }
 }

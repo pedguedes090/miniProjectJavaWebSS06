@@ -41,6 +41,9 @@
     </div>
   </div>
 
+  <div th:if="${errorMessage}" class="alert alert-danger shadow-sm" role="alert" th:text="${errorMessage}"></div>
+  <div th:if="${successMessage}" class="alert alert-success shadow-sm" role="alert" th:text="${successMessage}"></div>
+
   <div th:if="${#lists.isEmpty(courses)}" class="alert alert-warning text-center shadow-sm">
     <strong>Thông báo:</strong> Hiện chưa có lớp học phù hợp với trình độ này.
   </div>
@@ -78,6 +81,12 @@
           <a th:href="@{/course/edit/{id}(id=${course.courseCode})}" class="btn btn-sm btn-warning">
             Cập nhật
           </a>
+          <form th:action="@{/course/delete/{id}(id=${course.courseCode})}" method="post" class="d-inline"
+                onsubmit="return confirm('Bạn có chắc muốn hủy khóa học này không?');">
+            <button type="submit" class="btn btn-sm btn-danger">
+              Hủy khóa học
+            </button>
+          </form>
         </td>
       </tr>
       </tbody>
