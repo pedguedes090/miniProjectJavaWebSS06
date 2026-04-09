@@ -1,18 +1,86 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-  layout:decorate="~{main-layout}">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{main-layout}">
 <head>
-    <meta charset="UTF-8">
+  <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Danh sach khoa hoc</title>
+  <title>Danh Sách Khóa Học - EDU-PATH</title>
 </head>
 <body>
-  <div layout:fragment="content">
 
-    <h2 class="mb-4">Danh sách khóa học</h2>
+<div layout:fragment="content">
 
-    <p>Đây là trang danh sách...</p>
-
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h2 class="text-danger font-weight-bold mb-0">Danh Mục Khóa Học</h2>
   </div>
+
+  <div class="card shadow-sm mb-4">
+    <div class="card-body">
+      <form th:action="@{/course/list}" method="GET" class="form-inline">
+
+        <div class="form-group mr-3 mb-2">
+          <label for="level" class="mr-2 font-weight-bold">Trình độ:</label>
+          <select name="level" id="level" class="form-control">
+            <option value="">-- Tất cả trình độ --</option>
+            <option value="Beginner" th:selected="${selectedLevel == 'Beginner'}">Beginner</option>
+            <option value="Intermediate" th:selected="${selectedLevel == 'Intermediate'}">Intermediate</option>
+            <option value="Advanced" th:selected="${selectedLevel == 'Advanced'}">Advanced</option>
+          </select>
+        </div>
+
+        <div class="form-group mr-3 mb-2">
+          <label for="maxFee" class="mr-2 font-weight-bold">Học phí tối đa:</label>
+          <input type="number" name="maxFee" id="maxFee" class="form-control"
+                 placeholder="Nhập số tiền (VNĐ)" th:value="${selectedFee}">
+        </div>
+
+        <button type="submit" class="btn btn-danger mb-2 px-4">
+          Tra cứu
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <div th:if="${#lists.isEmpty(courses)}" class="alert alert-warning text-center shadow-sm">
+    <strong>Thông báo:</strong> Hiện chưa có lớp học phù hợp với trình độ này.
+  </div>
+
+  <div class="table-responsive shadow-sm" th:unless="${#lists.isEmpty(courses)}">
+    <table class="table table-bordered table-hover bg-white mb-0">
+      <thead class="thead-dark text-center">
+      <tr>
+        <th>Mã Khóa</th>
+        <th>Tên Khóa Học</th>
+        <th>Trình Độ</th>
+        <th>Học Phí</th>
+        <th>Hành Động</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr th:each="course : ${courses}" class="text-center">
+        <td class="align-middle font-weight-bold" th:text="${course.courseCode}">ENG-BEG-01</td>
+        <td class="align-middle text-left" th:text="${course.name}">Tiếng Anh Cơ Bản</td>
+        <td class="align-middle">
+          <span class="badge badge-pill badge-primary px-3 py-2" th:if="${course.level == 'Beginner'}">Beginner</span>
+          <span class="badge badge-pill badge-warning px-3 py-2" th:if="${course.level == 'Intermediate'}">Intermediate</span>
+          <span class="badge badge-pill badge-danger px-3 py-2" th:if="${course.level == 'Advanced'}">Advanced</span>
+        </td>
+
+        <td class="align-middle text-right text-danger font-weight-bold"
+            th:text="${#numbers.formatDecimal(course.tuitionFee, 0, 'COMMA', 0, 'POINT')} + ' VNĐ'">
+          3,500,000 VNĐ
+        </td>
+
+        <td class="align-middle">
+          <a th:href="@{/courses/detail/{id}(id=${course.courseCode})}" class="btn btn-sm btn-info">
+            Xem chi tiết
+          </a>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+
+</div>
 </body>
 </html>
